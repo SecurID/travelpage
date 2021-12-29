@@ -1,0 +1,29 @@
+name: travelpage
+recipe: laravel
+config:
+  php: '8.1'
+  composer_version: 2-latest
+  webroot: public
+  via: nginx
+  database: mysql
+  xdebug: false
+services:
+  database:
+    portforward: 3307
+  node:
+    type: node
+    build:
+      - npm install --no-bin-links
+    globals:
+      gulp-cli: latest
+tooling:
+  npm:
+    service: node
+  node:
+    service: node
+  gulp:
+    service: node
+  yarn:
+    service: node
+  mix:
+    service: node
