@@ -24,10 +24,10 @@ jobs:
       - image: circleci/mysql:8.0.20-ram
         command: mysqld --default-authentication-plugin=mysql_native_password
         environment:
-          MYSQL_USER: laravel
-          MYSQL_DATABASE: laravel
-          MYSQL_ROOT_PASSWORD: laravel
-          MYSQL_PASSWORD: laravel
+          MYSQL_USER: forge
+          MYSQL_DATABASE: forge
+          MYSQL_ROOT_PASSWORD: ''
+          MYSQL_PASSWORD: 'forge'
 
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
