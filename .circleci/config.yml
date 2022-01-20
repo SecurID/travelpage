@@ -20,6 +20,14 @@ jobs:
       # - image: circleci/mysql:5.7-ram
       #
       # - image: redis:2.8.19
+      
+      - image: circleci/mysql:8.0.20-ram
+        command: mysqld --default-authentication-plugin=mysql_native_password
+        environment:
+          MYSQL_USER: laravel
+          MYSQL_DATABASE: laravel
+          MYSQL_ROOT_PASSWORD: laravel
+          MYSQL_PASSWORD: laravel
 
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
@@ -27,7 +35,11 @@ jobs:
       - checkout
 
       - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
-      - run: sudo docker-php-ext-install zip
+      - run:
+          name: Install MySQL driver
+          command: |
+            sudo docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd
+            sudo docker-php-ext-install zip bcmath pdo_mysql
 
       # Download and cache dependencies
       - restore_cache:
@@ -55,7 +67,7 @@ jobs:
 
       # prepare the database
       - run: touch storage/testing.sqlite
-      - run: php artisan migrate --env=testing --database=sqlite_testing --force
+      - run: php artisan migrate --env=testing --database=mysql --force
 
       # run tests with phpunit or codecept
       #- run: ./vendor/bin/phpunit
