@@ -15,7 +15,7 @@ class Country extends Model
         'name',
         'iso',
         'iso3',
-        'currency_code'
+        'currency_code',
     ];
 
     public function locations()

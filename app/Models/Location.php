@@ -9,9 +9,9 @@ class Location extends Model
 {
     use HasFactory;
 
-    public $fillable= [
-      'name',
-      'country_id',
+    public $fillable = [
+        'name',
+        'country_id',
     ];
 
     public function country()
