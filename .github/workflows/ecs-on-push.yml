@@ -1,0 +1,37 @@
+name: Run ECS and open PR when made changes
+
+on:
+  push:
+    branches-ignore:
+      - 'main'
+
+jobs:
+  ecs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+        with:
+          php-version: '8.1'
+      - name: Run Code Fixer
+        run: vendor/bin/php-cs-fixer fix
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        id: cpr
+        with:
+          commit-message: ECS beautified your code
+          title: Coding Style matters
+          delete-branch: true
+          branch-suffix: short-commit-hash
+      - name: Check outputs
+        run: |
+          echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+          echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
+          echo "Pull Request Operation - ${{ steps.cpr.outputs.pull-request-operation }}"
+      - name: Exit if ECS made Changes
+        if: (steps.cpr.outputs.pull-request-operation == 'created') || (steps.cpr.outputs.pull-request-operation == 'updated')
+        run: exit 1
+
