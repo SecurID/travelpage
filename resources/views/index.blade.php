@@ -8,4 +8,6 @@
             </div>
         </div>
     </form>
+    <script src="{{ asset('js/typeahead.bundle.js') }}"></script>
+    <script src="/js/destinationSearch.js" type="text/javascript"></script>
 </x-app-layout>

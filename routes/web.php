@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\TypeaheadController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IndexController::class, 'index']);
+
+Route::get('/autocomplete-search', [TypeaheadController::class, 'autocompleteSearch']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
