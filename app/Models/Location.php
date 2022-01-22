@@ -20,13 +20,12 @@ class Location extends Model
     protected $searchable = [
         'columns' => [
             'locations.name' => 10,
-            'countries.name' => 5
+            'countries.name' => 5,
         ],
         'joins' => [
             'countries' => ['locations.country_id', 'countries.id'],
-        ]
+        ],
     ];
-
 
     public function country(): BelongsTo
     {

@@ -13,6 +13,7 @@ class TypeaheadController extends Controller
         $filterResult = Location::search($query)
             ->with('country')
             ->get();
+
         return response()->json($filterResult);
     }
 }
