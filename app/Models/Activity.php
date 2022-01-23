@@ -37,9 +37,9 @@ class Activity extends Model
             'highest' => 0,
         ];
 
-        foreach($prices as $price)
+        foreach($prices as $key => $price)
         {
-            if ($return['lowest'] > $price->value) {
+            if ($return['lowest'] > $price->value || $key == 0) {
                 $return['lowest'] = $price->value;
             } elseif ($return['highest'] < $price->value) {
                 $return['highest'] = $price->value;
