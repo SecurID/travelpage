@@ -1,5 +1,3 @@
-
-
 jQuery(document).ready(function($) {
     // Set the Options for "Bloodhound" suggestion engine
     var engine = new Bloodhound({
@@ -12,7 +10,7 @@ jQuery(document).ready(function($) {
     });
 
     $("#destinationSearch").typeahead({
-        hint: true,
+        hint: false,
         highlight: true,
     }, {
         source: engine.ttAdapter(),
@@ -29,7 +27,7 @@ jQuery(document).ready(function($) {
                 '<div class="list-group search-results-dropdown">'
             ],
             suggestion: function (data) {
-                return '<a href="' + data.name + '" class="list-group-item">' + data.name + ' - ' + data.country.name + '</a>'
+                return '<a href="/location/' + data.id + '" class="list-group-item">' + data.name + ' - ' + data.country.name + '</a>'
             }
         }
     });

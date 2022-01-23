@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Activity;
+use App\Models\Price;
 use Illuminate\Database\Seeder;
 
-class ActivitySeeder extends Seeder
+class PriceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,8 +14,8 @@ class ActivitySeeder extends Seeder
      */
     public function run()
     {
-        Activity::factory()
-            ->count(100)
+        Price::factory()
+            ->count(1000)
             ->create();
     }
 }

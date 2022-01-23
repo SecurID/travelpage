@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\TypeaheadController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IndexController::class, 'index']);
+
+Route::get('/location/{id}', [LocationController::class, 'show']);
 
 Route::get('/autocomplete-search', [TypeaheadController::class, 'autocompleteSearch']);
 
