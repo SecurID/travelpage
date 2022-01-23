@@ -12,7 +12,7 @@ class PriceFactory extends Factory
         $activity = Activity::inRandomOrder()->limit(1)->get();
 
         return [
-            'value' => $this->faker->randomFloat(2, 0,300),
+            'value' => $this->faker->randomFloat(2, 0, 300),
             'activity_id' => $activity[0]['id'],
         ];
     }
