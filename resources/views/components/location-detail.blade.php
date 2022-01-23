@@ -1,5 +1,5 @@
 <div>
-    <h1>{{ $location->name }}</h1>
+    <h1>{{ $location->name }} - {{ $country[0]['name'] }}</h1>
     <table class="table">
         <thead>
         <tr>

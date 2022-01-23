@@ -37,12 +37,13 @@ class LocationController extends Controller
     {
         $location = Location::find($id);
         $activities = $location->activities()->get();
+        $country = $location->country()->get();
         $prices = [];
         foreach($activities as $activity) {
             $prices[$activity->id] = $activity->calculatePrices();
         }
 
-        return view('location.show', ['location' => $location, 'activities' => $activities, 'prices' => $prices]);
+        return view('location.show', ['location' => $location, 'activities' => $activities, 'prices' => $prices, 'country' => $country]);
     }
 
 
