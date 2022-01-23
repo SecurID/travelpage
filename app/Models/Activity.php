@@ -49,7 +49,7 @@ class Activity extends Model
             $count++;
         }
 
-        if (!empty($prices)) {
+        if (! empty($prices)) {
             $return['average'] = $sum / $count;
         }
 
