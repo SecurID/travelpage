@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreLocationRequest;
 use App\Http\Requests\UpdateLocationRequest;
+use App\Models\Country;
 use App\Models\Location;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -18,7 +19,13 @@ class LocationController extends Controller
 
     public function create()
     {
+        $location = new Location();
+        $countries = Country::all();
 
+        return view('location.create', [
+            'location' => $location,
+            'countries' => $countries,
+        ]);
     }
 
     public function store(StoreLocationRequest $request)
@@ -43,7 +50,12 @@ class LocationController extends Controller
             $prices[$activity->id] = $activity->calculatePrices();
         }
 
-        return view('location.show', ['location' => $location, 'activities' => $activities, 'prices' => $prices, 'country' => $country]);
+        return view('location.show', [
+            'location' => $location,
+            'activities' => $activities,
+            'prices' => $prices,
+            'country' => $country
+        ]);
     }
 
 

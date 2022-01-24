@@ -18,9 +18,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [IndexController::class, 'index']);
 
-Route::get('/location/{id}', [LocationController::class, 'show']);
+Route::resource('locations', LocationController::class);
 
 Route::get('/autocomplete-search', [TypeaheadController::class, 'autocompleteSearch']);
+
+Route::get('/autocomplete-search-country', [TypeaheadController::class, 'autocompleteSearchCountry']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

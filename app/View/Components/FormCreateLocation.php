@@ -4,24 +4,20 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class Modal extends Component
+class FormCreateLocation extends Component
 {
-    public $id;
-    public $title;
-    public $buttonText;
-    public $component;
+    public $location;
+    public $countries;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($id, $title, $buttonText, $component)
+    public function __construct($location, $countries)
     {
-        $this->id = $id;
-        $this->title = $title;
-        $this->buttonText = $buttonText;
-        $this->component = $component;
+        $this->location = $location;
+        $this->countries = $countries;
     }
 
     /**
@@ -31,6 +27,6 @@ class Modal extends Component
      */
     public function render()
     {
-        return view('components.modal');
+        return view('components.form-create-location');
     }
 }
