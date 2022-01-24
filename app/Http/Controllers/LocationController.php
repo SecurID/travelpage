@@ -14,6 +14,7 @@ class LocationController extends Controller
     public function index()
     {
         $locations = Location::with('countries')->get();
+
         return response()->json($locations);
     }
 
@@ -32,13 +33,12 @@ class LocationController extends Controller
     {
         $location = new Location([
             'name' => $request->input('name'),
-            'country_id' => $request->input('country_id')
+            'country_id' => $request->input('country_id'),
         ]);
         $location->save();
 
         return response()->json('Location created!');
     }
-
 
     public function show($id)
     {
@@ -57,7 +57,6 @@ class LocationController extends Controller
             'country' => $country
         ]);
     }
-
 
     public function edit(Location $location)
     {
