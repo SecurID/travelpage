@@ -3,84 +3,78 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreLocationRequest;
-use App\Http\Requests\UpdateLocationRequest;
+use App\Models\Country;
 use App\Models\Location;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class LocationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $locations = Location::with('countries')->get();
+
+        return response()->json($locations);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $location = new Location();
+        $countries = Country::all();
+
+        return view('location.create', [
+            'location' => $location,
+            'countries' => $countries,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreLocationRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreLocationRequest $request)
     {
-        //
+        $location = new Location([
+            'name' => $request->input('name'),
+            'country_id' => $request->input('country_id'),
+        ]);
+        $location->save();
+
+        return response()->json('Location created!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Location $location)
+    public function show($id)
     {
-        //
+        $location = Location::find($id);
+        $activities = $location->activities()->get();
+        $country = $location->country()->get();
+        $prices = [];
+        foreach($activities as $activity) {
+            $prices[$activity->id] = $activity->calculatePrices();
+        }
+
+        return view('location.show', [
+            'location' => $location,
+            'activities' => $activities,
+            'prices' => $prices,
+            'country' => $country,
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Location $location)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateLocationRequest  $request
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateLocationRequest $request, Location $location)
+    public function update($id, Request $request): JsonResponse
     {
-        //
+        $location = Location::find($id);
+        $location->update($request->all());
+
+        return response()->json('Location updated!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Location $location)
+    public function destroy($id)
     {
-        //
+        $location = Location::find($id);
+        $location->delete();
+
+        return response()->json('Location deleted!');
     }
 }

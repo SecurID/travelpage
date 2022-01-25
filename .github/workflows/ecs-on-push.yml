@@ -18,6 +18,7 @@ jobs:
           php-version: '8.1'
       - name: Run Code Fixer
         run: vendor/bin/php-cs-fixer fix
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         id: cpr
