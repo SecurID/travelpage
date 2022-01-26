@@ -12,7 +12,7 @@ class LocationController extends Controller
 {
     public function index()
     {
-        $locations = Location::with('countries')->get();
+        $locations = Location::with('country')->get();
 
         return response()->json($locations);
     }

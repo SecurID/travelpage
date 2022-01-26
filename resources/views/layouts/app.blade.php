@@ -34,6 +34,9 @@
             <main>
                 <div class="container">
                     {{ $slot }}
+
+                    <div id="app"></div>
+                    <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
                 </div>
             </main>
         </div>
