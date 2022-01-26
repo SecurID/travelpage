@@ -4,22 +4,25 @@
     <!-- Country -->
     <div class="mb-3">
         <input type="hidden" id="country_id" value="" name="country_id">
-        <input type="text" class="form-control" id="countryName">
+        <input type="text" class="form-control" id="countryName" placeholder="Type to search...">
         <label for="countryName" class="form-label">Country</label>
     </div>
 
     <!-- Location -->
     <div class="mb-3">
-        <label for="locationName" class="form-label">Location</label>
-        <input type="text" class="form-control" id="locationName" value="{{ $location->name }}" name="name" aria-describedby="locationHelp">
-        <div id="locationHelp" class="form-text">Please use the familiar name without descriptions.</div>
+        <label for="locationSelect" class="form-label">Location</label>
+        <select id="locationSelect" class="form-select" aria-label="Default select example" aria-describedby="locationHelp">
+            <option selected>Please select a Country first!</option>
+        </select>
+        <div id="locationHelp" class="form-text">Not found your location? Add a new one!</div>
     </div>
 
-    <!-- Activity -->
     <div class="mb-3">
-        <label for="activityName" class="form-label">Activity</label>
-        <input type="text" class="form-control" id="activityName" value="{{ $activity->name }}" name="activityName" aria-describedby="activityHelp">
-        <div id="activityHelp" class="form-text">Please describe it as generally as possible. </div>
+        <label for="activitySelect" class="form-label">Activity</label>
+        <select id="activitySelect" class="form-select" aria-label="Default select example" aria-describedby="activityHelp">
+            <option selected>Please select a Country & Location first!</option>
+        </select>
+        <div id="activityHelp" class="form-text">Not found your activity? Add a new one!</div>
     </div>
 
     <!-- Price -->
@@ -32,7 +35,63 @@
     <!-- Scripts -->
     <script src="{{ asset('js/typeahead.bundle.js') }}"></script>
     <script src="{{ asset('js/countrySearch.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/locationSearch.js') }}" type="text/javascript"></script>
+    <script>
+        $('#countryName').bind('typeahead:select', function(ev, suggestion) {
+            $('#countryName').typeahead('val', suggestion.name);
+            $('#country_id').val(suggestion.id);
+            insertLocationResults(suggestion.id);
+        });
+
+        $('#locationSelect').on('change', function(value) {
+            insertActivityResults(this.value);
+        });
+
+        function insertLocationResults(id) {
+            $.ajax({
+
+                url : '/country/' + id + '/locations',
+                type : 'GET',
+                data : {
+                    'country_id' : id
+                },
+                dataType:'json',
+                success : function(data) {
+                    $("#locationSelect").empty();
+                    $('#locationSelect').append("<option>Please select a location.</option>")
+                    data.forEach(function(location) {
+                        $('#locationSelect').append("<option value='" + location.id + "'>" + location.name + "</option>")
+                    });
+                },
+                error : function(request,error)
+                {
+                    alert("Request: "+JSON.stringify(request));
+                }
+            });
+        }
+
+        function insertActivityResults(id) {
+            $.ajax({
+
+                url : '/location/' + id + '/activities',
+                type : 'GET',
+                data : {
+                    'location_id' : id
+                },
+                dataType:'json',
+                success : function(data) {
+                    $("#activitySelect").empty();
+                    $('#activitySelect').append("<option>Please select a activity.</option>")
+                    data.forEach(function(activity) {
+                        $('#activitySelect').append("<option value='" + activity.id + "'>" + activity.name + "</option>")
+                    });
+                },
+                error : function(request,error)
+                {
+                    alert("Request: "+JSON.stringify(request));
+                }
+            });
+        }
+    </script>
 
 
     <button type="submit" class="btn btn-primary">Submit</button>

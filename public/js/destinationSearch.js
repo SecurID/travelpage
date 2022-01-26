@@ -27,7 +27,7 @@ jQuery(document).ready(function($) {
                 '<div class="list-group search-results-dropdown">'
             ],
             suggestion: function (data) {
-                return '<a href="/location/' + data.id + '" class="list-group-item">' + data.name + ' - ' + data.country.name + '</a>'
+                return '<a href="/locations/' + data.id + '" class="list-group-item">' + data.name + ' - ' + data.country.name + '</a>'
             }
         }
     });

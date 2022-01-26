@@ -83,4 +83,12 @@ class CountryController extends Controller
     {
         //
     }
+
+    public function locations($id)
+    {
+        $country = Country::find($id);
+        $locations = $country->locations()->get();
+
+        return response()->json($locations);
+    }
 }

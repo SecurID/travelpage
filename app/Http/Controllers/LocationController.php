@@ -77,4 +77,12 @@ class LocationController extends Controller
 
         return response()->json('Location deleted!');
     }
+
+    public function activities($id)
+    {
+        $location = Location::find($id);
+        $activities = $location->activities()->get();
+
+        return response()->json($activities);
+    }
 }
