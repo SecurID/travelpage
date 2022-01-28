@@ -8,4 +8,19 @@ class IndexController extends Controller
     {
         return view('index', ['countries' => 'Panama']);
     }
+
+    public function impressum()
+    {
+        return view('impressum');
+    }
+
+    public function privacy()
+    {
+        return view('privacy');
+    }
+
+    public function contact()
+    {
+        return view('contact');
+    }
 }

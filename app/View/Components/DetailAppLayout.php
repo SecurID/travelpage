@@ -4,19 +4,8 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class FormCreateActivity extends Component
+class DetailAppLayout extends Component
 {
-
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-
-    }
-
     /**
      * Get the view / contents that represent the component.
      *
@@ -24,6 +13,6 @@ class FormCreateActivity extends Component
      */
     public function render()
     {
-        return view('components.form-create-activity');
+        return view('layouts.detail-app');
     }
 }

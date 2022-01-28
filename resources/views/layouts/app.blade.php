@@ -32,13 +32,10 @@
 
             <!-- Page Content -->
             <main>
-                <div class="container">
-                    {{ $slot }}
+                {{ $slot }}
 
-                    <div id="app"></div>
-                    <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
-                </div>
+                <x-footer></x-footer>
             </main>
         </div>
-        </body>
+    </body>
 </html>

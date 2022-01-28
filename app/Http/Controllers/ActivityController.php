@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreActivityRequest;
 use App\Http\Requests\UpdateActivityRequest;
 use App\Models\Activity;
+use Illuminate\Http\JsonResponse;
 
 class ActivityController extends Controller
 {
@@ -31,12 +32,18 @@ class ActivityController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreActivityRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreActivityRequest $request
+     * @return JsonResponse
      */
     public function store(StoreActivityRequest $request)
     {
-        //
+        $activity = new Activity([
+            'name' => $request->input('name'),
+            'country_id' => $request->input('country_id'),
+        ]);
+        $activity->save();
+
+        return response()->json('Activity created!');
     }
 
     /**

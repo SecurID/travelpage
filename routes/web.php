@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LocationActivityPriceController;
@@ -19,8 +20,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IndexController::class, 'index']);
+Route::get('/impressum', [IndexController::class, 'impressum']);
+Route::get('/privacy', [IndexController::class, 'privacy']);
+Route::get('/contact', [IndexController::class, 'contact']);
 
 Route::resource('locations', LocationController::class);
+Route::resource('activities', ActivityController::class);
 
 Route::get('/autocomplete-search', [TypeaheadController::class, 'autocompleteSearch']);
 Route::get('/autocomplete-search-country', [TypeaheadController::class, 'autocompleteSearchCountry']);
